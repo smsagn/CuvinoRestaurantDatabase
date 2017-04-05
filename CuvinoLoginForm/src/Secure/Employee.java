@@ -96,6 +96,11 @@ public class Employee extends javax.swing.JFrame {
         jScrollPane1.setViewportView(EmployeeTable);
 
         addBtn.setText("Add");
+        addBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addBtnActionPerformed(evt);
+            }
+        });
 
         deleteBtn.setText("Delete");
         deleteBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -105,6 +110,11 @@ public class Employee extends javax.swing.JFrame {
         });
 
         updateBtn.setText("Update");
+        updateBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateBtnActionPerformed(evt);
+            }
+        });
 
         FNameTxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -262,8 +272,8 @@ public class Employee extends javax.swing.JFrame {
         // TODO add your handling code here:
         try{
             String sql = "Delete from user123.employee where SSN =" + SSNTxt.getText();
-            Statement add = conn.createStatement();
-            add.executeUpdate(sql);
+            Statement delete = conn.createStatement();
+            delete.executeUpdate(sql);
             SSNTxt.setText("");
             FNameTxt.setText("");
             Mid_InitTxt.setText("");
@@ -277,8 +287,89 @@ public class Employee extends javax.swing.JFrame {
         }catch (SQLException e){
             e.printStackTrace();
         }
-        selection();
+        selection(); //prints table again after delete
     }//GEN-LAST:event_deleteBtnActionPerformed
+
+    private void updateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateBtnActionPerformed
+        // TODO add your handling code here:
+        /*
+        try{
+            String sql = "Update user123.employee set SSN = '"+ SSNTxt.getText()+"'"+", FName = '"+FNameTxt.getText()+"'"+
+                    ", Mid_Init = '"+ Mid_InitTxt.getText()+"'"+", LName = '"+ LNameTxt.getText()+"'"+
+                    ", Hours_Worked = '"+ Hours_WorkedTxt.getText()+"'"+", Pay_Rate = '"+ Pay_RateTxt.getText()+"'"+
+                    ", Address = '"+ AddressTxt.getText()+"'"+", SuperSSN = '"+ SuperSSNTxt.getText()+"'"+
+                    ", DNO = '"+ DNOTxt.getText();
+            Statement update = conn.createStatement();
+            update.executeUpdate(sql);
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        selection(); //prints table again after update
+        */
+        try{
+            String SSN = SSNTxt.getText();
+            String FName = FNameTxt.getText();
+            String Mid_Init = Mid_InitTxt.getText();
+            String LName = LNameTxt.getText();
+            Double Hours_Worked = Double.parseDouble(Hours_WorkedTxt.getText());
+            Double Pay_Rate = Double.parseDouble(Pay_RateTxt.getText());
+            String Address = AddressTxt.getText();
+            String SuperSSN = SuperSSNTxt.getText();
+            int DNO = Integer.parseInt(DNOTxt.getText());
+            
+            String sql = "UPDATE user123.employee SET WHERE SSN=? (?, ?, ?, ?, ?, ?, ?, ?)";
+        
+            PreparedStatement add = conn.prepareStatement(sql);
+            add.setString(1, SSN);
+            add.setString(2, FName);
+            add.setString(3, Mid_Init);
+            add.setString(4, LName);
+            add.setDouble(5, Hours_Worked);
+            add.setDouble(6, Pay_Rate);
+            add.setString(7, Address);
+            add.setString(8, SuperSSN);
+            add.setInt(9, DNO);
+            
+        
+            add.executeUpdate(); //update table after updating user
+        } catch(SQLException e){
+            e.printStackTrace();
+        }
+        selection();   //print table after update
+    }//GEN-LAST:event_updateBtnActionPerformed
+
+    private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
+        // TODO add your handling code here:
+        try{
+            String SSN = SSNTxt.getText();
+            String FName = FNameTxt.getText();
+            String Mid_Init = Mid_InitTxt.getText();
+            String LName = LNameTxt.getText();
+            Double Hours_Worked = Double.parseDouble(Hours_WorkedTxt.getText());
+            Double Pay_Rate = Double.parseDouble(Pay_RateTxt.getText());
+            String Address = AddressTxt.getText();
+            String SuperSSN = SuperSSNTxt.getText();
+            int DNO = Integer.parseInt(DNOTxt.getText());
+            
+            String sql = "INSERT INTO user123.employee VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        
+            PreparedStatement add = conn.prepareStatement(sql);
+            add.setString(1, SSN);
+            add.setString(2, FName);
+            add.setString(3, Mid_Init);
+            add.setString(4, LName);
+            add.setDouble(5, Hours_Worked);
+            add.setDouble(6, Pay_Rate);
+            add.setString(7, Address);
+            add.setString(8, SuperSSN);
+            add.setInt(9, DNO);
+        
+            add.executeUpdate(); //update table after adding new user
+        } catch(SQLException e){
+            e.printStackTrace();
+        }
+        selection();   //print table after update       
+    }//GEN-LAST:event_addBtnActionPerformed
 
     /**
      * @param args the command line arguments
