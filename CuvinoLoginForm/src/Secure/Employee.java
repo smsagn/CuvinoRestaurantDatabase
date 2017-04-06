@@ -292,20 +292,7 @@ public class Employee extends javax.swing.JFrame {
 
     private void updateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateBtnActionPerformed
         // TODO add your handling code here:
-        /*
-        try{
-            String sql = "Update user123.employee set SSN = '"+ SSNTxt.getText()+"'"+", FName = '"+FNameTxt.getText()+"'"+
-                    ", Mid_Init = '"+ Mid_InitTxt.getText()+"'"+", LName = '"+ LNameTxt.getText()+"'"+
-                    ", Hours_Worked = '"+ Hours_WorkedTxt.getText()+"'"+", Pay_Rate = '"+ Pay_RateTxt.getText()+"'"+
-                    ", Address = '"+ AddressTxt.getText()+"'"+", SuperSSN = '"+ SuperSSNTxt.getText()+"'"+
-                    ", DNO = '"+ DNOTxt.getText();
-            Statement update = conn.createStatement();
-            update.executeUpdate(sql);
-        }catch (SQLException e){
-            e.printStackTrace();
-        }
-        selection(); //prints table again after update
-        */
+        
         try{
             String SSN = SSNTxt.getText();
             String FName = FNameTxt.getText();
@@ -317,18 +304,19 @@ public class Employee extends javax.swing.JFrame {
             String SuperSSN = SuperSSNTxt.getText();
             int DNO = Integer.parseInt(DNOTxt.getText());
             
-            String sql = "UPDATE user123.employee SET WHERE SSN=? (?, ?, ?, ?, ?, ?, ?, ?)";
+            String sql = "UPDATE user123.employee SET FName=?, Mid_Init=?, LName=?, Hours_Worked=?, Pay_Rate=?, Address=?, SuperSSN=?, DNO=?  WHERE SSN=?";
         
             PreparedStatement add = conn.prepareStatement(sql);
-            add.setString(1, SSN);
-            add.setString(2, FName);
-            add.setString(3, Mid_Init);
-            add.setString(4, LName);
-            add.setDouble(5, Hours_Worked);
-            add.setDouble(6, Pay_Rate);
-            add.setString(7, Address);
-            add.setString(8, SuperSSN);
-            add.setInt(9, DNO);
+            
+            add.setString(1, FName);
+            add.setString(2, Mid_Init);
+            add.setString(3, LName);
+            add.setDouble(4, Hours_Worked);
+            add.setDouble(5, Pay_Rate);
+            add.setString(6, Address);
+            add.setString(7, SuperSSN);
+            add.setInt(8, DNO);
+            add.setString(9, SSN);
             
         
             add.executeUpdate(); //update table after updating user
